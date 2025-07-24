@@ -1,0 +1,23 @@
+
+name: Deploy to Render
+
+on:
+ push:
+    branches:
+
+     - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      - name: Install dependencies
+        run: |
+          pip install -r app/requirements.txt
+      - name: Run server (optional for testing)
+        run: |
+          uvicorn app.main:app --host 0.0.0.0 --port 8000
